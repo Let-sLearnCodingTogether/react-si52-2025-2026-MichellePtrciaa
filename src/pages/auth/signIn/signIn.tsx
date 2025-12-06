@@ -33,6 +33,7 @@ function SignIn() {
 
             if(response.status === 200){
                 //redirect ke halaman movie
+                localStorage.setItem("AuthToken", response.data.data.token)
                 navigate("/movie",{
                     replace : true
                 })
