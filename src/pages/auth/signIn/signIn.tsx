@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import ApiClient from "../../../utils/ApiClient"
 import { Button, Form, NavLink } from "react-bootstrap"
+import { replace, useNavigate } from "react-router"
 
 interface SignInForm {
     email: string,
@@ -8,6 +9,7 @@ interface SignInForm {
 }
 
 function SignIn() {
+    const navigate = useNavigate()
     const [form, setForm] = useState<SignInForm>({
         email: "",
         password: ""
@@ -28,6 +30,13 @@ function SignIn() {
             const response = await ApiClient.post("/signin", form)
  
             console.log(response);
+
+            if(response.status === 200){
+                //redirect ke halaman movie
+                navigate("/movie",{
+                    replace : true
+                })
+            }
         } catch (error) {
             console.log(error);
         }
